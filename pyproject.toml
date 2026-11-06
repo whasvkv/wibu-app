@@ -1,0 +1,8 @@
+[tool.flet]
+app-name = "multistreamindo"
+description = "Aplikasi Nonton Anime Donghua Drakor"
+package-name = "com.wibustream.app"
+
+[tool.flet.dependencies]
+flet = "*"
+requests = "*"
