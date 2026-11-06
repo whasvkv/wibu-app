@@ -1,0 +1,25 @@
+from fastapi import FastAPI
+from wibuapi import WibuAPI  # Import wrapper wibuapi resmi
+
+app = FastAPI()
+# Inisialisasi object API utama di luar endpoint
+wibu = WibuAPI()
+
+@app.get("/donghua/terbaru")
+def get_donghua_terbaru():
+    try:
+        # Menggunakan scraper modul spesialis Donghua (misal: Anichin)
+        # Sesuai standard library: wibu.anime.<provider>.latest()
+        data = wibu.anime.anichin.latest()
+        return {"status": "success", "data": data}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.get("/donghua/streaming")
+def get_stream_link(link_episode: str):
+    try:
+        # Menghasilkan link pemutar video dari tautan episode pilihan
+        video_data = wibu.anime.anichin.skip_az(link_episode)
+        return {"status": "success", "video": video_data}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
